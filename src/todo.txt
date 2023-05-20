@@ -1,5 +1,0 @@
-make algos faster
-
-
-use bg-black for the element that is being replaced in insertion sort
-
