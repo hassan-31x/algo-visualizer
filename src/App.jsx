@@ -130,6 +130,7 @@ export default function App() {
   };
 
   const generateArray = () => {
+    setRun(0)
     let newArray = [];
     // let bars = window.innerWidth > 600 ? 35 : window.innerWidth > 400 ? 20 : 10;
     let bars = 10
@@ -188,7 +189,7 @@ export default function App() {
           onClick={() => bubbleSortMine()}
           className="border border-blue-600 text-blue-600 px-3 py-1 mx-2 mt-2 rounded-md"
         >
-          Bubble Sort Mine
+          Bubble Sort 2
         </button>
         <button
           onClick={() => bubbleSort()}
