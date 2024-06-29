@@ -15,3 +15,5 @@ type Tile = {
 }
 
 type Grid = Tile[][];
+
+type Speed = 1 | 0.5 | 2
