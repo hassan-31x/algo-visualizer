@@ -8,22 +8,21 @@ type Props = {}
 
 const PathFinding = (props: Props) => {
   return (
-    <PathFindingWrapper>
-      <Path />
-    </PathFindingWrapper>
+    // TODO: Wrap the Path component with the necessary providers instead of whole app
+    <Path />
   )
 }
 
-const PathFindingWrapper = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <PathfindingProvider>
-      <TileProvider>
-        <SpeedProvider>
-          {children}
-        </SpeedProvider>
-      </TileProvider>
-    </PathfindingProvider>
-  )
-}
+// const PathFindingWrapper = ({ children }: { children: React.ReactNode }) => {
+//   return (
+//     <PathfindingProvider>
+//       <TileProvider>
+//         <SpeedProvider>
+//           {children}
+//         </SpeedProvider>
+//       </TileProvider>
+//     </PathfindingProvider>
+//   )
+// }
 
 export default PathFinding
