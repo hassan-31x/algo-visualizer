@@ -10,13 +10,16 @@ type Props = {
     isPath: boolean;
     distance: number;
     isTraversed: boolean;
+    handleMouseDown: (row: number, col: number) => void;
+    handleMouseEnter: (row: number, col: number) => void;
+    handleMouseUp: (row: number, col: number) => void;
 }
 
 const Tile = (props: Props) => {
-    const { row, col, isStart, isEnd, isWall, isPath, distance, isTraversed } = props
+    const { row, col, isStart, isEnd, isWall, isPath, distance, isTraversed, handleMouseDown, handleMouseEnter, handleMouseUp } = props
 
     const getTailwindStyles = () => {
-        let base = 'w-[7px] xs:w-[8px] md:w-[15px] lg:w-[17px] h-[7px] xs:h-[8px] md:h-[15px] lg:h-[17px] border-t border-r border-sky-200'
+        let base = 'w-[7px] xs:w-[8px] md:w-[15px] lg:w-[17px] h-[7px] xs:h-[8px] md:h-[15px] lg:h-[17px] border-t border-r border-sky-200 cursor-pointer'
 
         if (isTraversed) {
             return `${base} bg-cyan-400`
@@ -42,7 +45,12 @@ const Tile = (props: Props) => {
     const edgeStyle = row === MAX_ROWS-1 && col === 0 ? 'border-l' : ''
 
   return (
-    <div className={`${tileStyle} ${borderStyle} ${edgeStyle}`} id={`${row}-${col}`} />
+    <div 
+        className={`${tileStyle} ${borderStyle} ${edgeStyle}`} id={`${row}-${col}`}
+        onMouseDown={() => handleMouseDown(row, col)}
+        onMouseEnter={() => handleMouseEnter(row, col)}
+        onMouseUp={() => handleMouseUp(row, col)}
+    />
   )
 }
 

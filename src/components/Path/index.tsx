@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import GridContainer from './grid'
 
 type Props = {}
 
 const Path = (props: Props) => {
+  const isVisualizationRunningRef = useRef(false)
+
   return (
     <div className='h-screen w-screen flex flex-col'>
-      <GridContainer />
+      <GridContainer isVisualizationRunningRef={isVisualizationRunningRef} />
     </div>
   )
 }

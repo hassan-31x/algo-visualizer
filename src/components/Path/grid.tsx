@@ -1,12 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { usePathfinding } from '../../context/PathfindingContext'
 import { MAX_COLS, MAX_ROWS } from '../../utils/constants'
 import Tile from './tile'
+import { createNewGrid, isStartOrEnd } from '../../utils/helpers'
 
-type Props = {}
+type Props = {
+    isVisualizationRunningRef: React.MutableRefObject<boolean>
+}
 
-const GridContainer = (props: Props) => {
-    const { grid } = usePathfinding()
+const GridContainer = ({ isVisualizationRunningRef }: Props) => {
+    const [mouseDown, setMouseDown] = useState(false)
+
+    const { grid, setGrid } = usePathfinding()
+
+    const handleMouseDown = (row: number, col: number) => {
+        if (isVisualizationRunningRef.current || isStartOrEnd(row, col)) return
+        
+        setMouseDown(true)
+        const newGrid = createNewGrid(grid, row, col)
+        setGrid(newGrid)
+    }
+    
+    const handleMouseUp = (row: number, col: number) => {
+        if (isVisualizationRunningRef.current || isStartOrEnd(row, col)) return
+        
+        setMouseDown(false)
+    }
+
+    const handleMouseEnter = (row: number, col: number) => {
+        if (isVisualizationRunningRef.current || isStartOrEnd(row, col)) return
+
+        if (mouseDown) {
+            const newGrid = createNewGrid(grid, row, col)
+            setGrid(newGrid)
+        }
+    }
+
   return (
     <div className={`
         flex flex-col h-full items-center justify-center border-sky-300
@@ -26,6 +55,10 @@ const GridContainer = (props: Props) => {
                         isPath={tile.isPath}
                         distance={tile.distance}
                         isTraversed={tile.isTraversed}
+
+                        handleMouseDown={() => handleMouseDown(tile.row, tile.col)}
+                        handleMouseEnter={() => handleMouseEnter(tile.row, tile.col)}
+                        handleMouseUp={() => handleMouseUp(tile.row, tile.col)}
                     />
                 ))}
             </div>

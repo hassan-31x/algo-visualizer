@@ -25,3 +25,19 @@ export const createGrid = (startTile: Tile, endTile: Tile) => {
     }
     return grid
 }
+
+
+export const isStartOrEnd = (row: number, col: number) => {
+    return (row === 1 && col === 1) || (row === MAX_ROWS-2 && col === MAX_COLS-2)
+}
+
+export const createNewGrid = (grid: Grid, row: number, col: number) => {
+    const newGrid = grid.slice() //2d array so no destructuring
+    const tile = newGrid[row][col]
+    const newTile = {
+        ...tile,
+        isWall: !tile.isWall
+    }
+    newGrid[row][col] = newTile
+    return newGrid
+}
